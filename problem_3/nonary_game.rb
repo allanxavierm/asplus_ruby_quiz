@@ -6,19 +6,21 @@ class NonaryGame
   end
   
   def valid_groups
-    for i in 2..4
+    for i in 3..5
       set.combination(i).to_a.each do |group|
-        group <<= 5
-        group.inject do |sum, member| 
-          group_sum = sum + member
-          while group_sum/10 <= 0
+        next unless group.include? 5
+        group_sum = 0
+        group.each do |g| 
+          group_sum += g 
+          until group_sum/10 <= 0 
+            remainder = group_sum%10
+            quotient  = group_sum/10 
+            group_sum = remainder + quotient
+          end
         end
-          
-      end	
+        @solutions << group if group_sum == 9
+      end 
     end
+    @solutions
   end
-  
 end
-
-n = NonaryGame.new
-n.valid_groups
