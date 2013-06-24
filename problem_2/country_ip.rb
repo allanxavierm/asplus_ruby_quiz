@@ -1,11 +1,21 @@
+require 'csv'
 class CountryIp
   
   def initialize
-    # Implement me
+    
   end
   
-  def search(ip_string)
-    # Implement me
+  def parse_csv
+    CSV.foreach('IpToCountry.csv') do |row|
+      p row	
+    end 
+  end
+
+  def search
+    parse_csv
   end
   
 end
+
+c = CountryIp.new
+c.search
